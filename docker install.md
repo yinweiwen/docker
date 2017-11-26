@@ -84,6 +84,15 @@ tpid=`sudo docker inspect -f {{.State.Pid}} 404d5b9dc923`
 sudo nsenter --target $tpid --mount --uts --ipc --net --pid
 ```
 
+### 开启 docker 远程TCP访问
+```bash
+# 
+# 编辑 /etc/systemd/system/multi-user.target.wants/docker.service 文件
+# 找到 ExecStart= 追加 -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
 ### 私有镜像仓库
 
 ```bash
